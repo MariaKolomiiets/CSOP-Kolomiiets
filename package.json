@@ -1,5 +1,5 @@
 {
-  "name": "ts_lab1",
+  "name": "ts_lab2",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,7 +11,7 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "@types/node": "^24.6.2",
+    "@types/node": "^24.8.1",
     "typescript": "^5.9.3"
   }
 }

@@ -1,60 +1,92 @@
-// main.ts
+import { getAllWorkers, getWorkerByID, PrintWorker, logPrize } from "./functions";
+import { UniversityLibrarian, Encyclopedia } from "./classes";
+import { Author, Librarian, Worker } from "./interfaces";
 
-import { 
-  logFirstAvailable, 
-  getAllWorkers, 
-  getWorkersSurnamesByCategory, 
-  logWorkersNames, 
-  getWorkerByID, 
-  checkoutWorkers 
-} from "./utils/workerFunctions";
-import { createCustomerID, createCustomer } from "./utils/customerFunctions";
-import { Category } from "./enums/Category";
+// 2.1 Демонстрація роботи з Worker 
+console.log(" 2.1 Workers");
 
-console.log("1.1.3.Запустіть функцію getAllWorkers().");
-const allWorkers = getAllWorkers();
-console.log(allWorkers);
+//отримуємо всіх робітників 
+const allWorkers: Worker[] = getAllWorkers();
+console.log("All workers:", allWorkers);
 
-console.log("\n 1.1.5.Запустіть функцію logFirstAvailable():");
-logFirstAvailable(allWorkers);
+//пошук робітника за id
+const worker = getWorkerByID(2);
+if (worker) {
+    PrintWorker(worker);
+} else {
+    console.log("Worker not found");
+}
 
-console.log("\n 1.3.2.Виведіть name та surname робітників з категорії Developer:");
-allWorkers
-  .filter(w => w.category === Category.Developer)
-  .forEach(w => console.log(`${w.name} ${w.surname}`));
+// 2.2 Інтерфейс PrizeLogger
+console.log("\n 2.2 PrizeLogger");
 
-console.log("\n 1.3.3. Виклик функції getWorkerByID():");
-const worker = getWorkerByID(3);
-console.log("Worker with ID = 3:", worker);
+logPrize("Employee of the Month");
 
-console.log(" \n 1.4.1. Виклик функції createCustomerID зі значеннями *Ваше ім’я*,*порядковий комер в списку*:");
-const myId = createCustomerID("Марія", 10);
-console.log("Generated ID:", myId);
+// можемо призначити логер конкретному робітнику якщо такий є
+if (worker) {
+    worker.markPrize = logPrize;
+    worker.markPrize("Best performer");
+}
 
-console.log("\n 1.4.3. Оголосіть змінну idGenerator, дайте їй функціональний вираз використовуючи стрілочну функцію.:");
-let idGenerator = (name: string, id: number): string => `${name}-${id}`;
-console.log("Arrow ID:", idGenerator("Марія", 10));
+// 2.3 Person, Author, Librarian
+console.log("\n2.3 Person, Author, Librarian");
 
-console.log("\n 1.4.4. Присвойте змінній idGenerator функцію createCustomerID() та викличте її:");
-idGenerator = createCustomerID;
-console.log("Function reference ID:", idGenerator("Марія", 10));
+//2.3.4. Оголосіть змінну favoriteAuthor використовуючи інтерфейс Author 
+// задайте значення у вигляді літерала об'єкта
+const favoriteAuthor: Author = {
+    name: "Mykola Khvylovy",
+    email: "khvylovy@vaplite.ua",
+    numBooksPublished: 13,
+};
+console.log("Favorite author:", favoriteAuthor);
 
-console.log("\n 1.5.1. Викличте функцію createCustomer() з одним, двома і трьома параметрами:");
-createCustomer("Любов");
-createCustomer("Надія", 20);
-createCustomer("Bipa", 22, "Kyiv");
+//2.3.5.Оголосіть змінну favoriteLibrarian використовуючи інтерфейс Librarian
+//задайте значення у вигляді літерала об'єкта
+//закоментовано 2.4.2
+// const favoriteLibrarian: Librarian = {
+//     name: "Anna",
+//     email: "anna@library.com",
+//     department: "History",
+//     assistCustomer: (custName: string) => {
+//         console.log(`Anna is assisting ${custName}`);
+//     },
+// };
+// favoriteLibrarian.assistCustomer("Ostap");
 
-console.log("\n 1.5.2. Викличте getWorkersSurnamesByCategory() без параметра (Category.Designer за замовчуванням):");
-const defaultSurnames = getWorkersSurnamesByCategory();
-logWorkersNames(defaultSurnames);
+// 2.4 UniversityLibrarian
+console.log("\n 2.4 UniversityLibrarian");
 
-console.log("\n 1.5.3. Виклик logFirstAvailable() без параметра (перевірка дефолтного значення):");
-logFirstAvailable();
+//2.4.2. Закоментуйте код, який відноситься до змінної favoriteLibrarian
 
-console.log("\n 1.5.5. Оголошення myWorker, виклик checkoutWorkers(*Ваше ім'я*, *Номер за списком*, *Група*, *Хоббі*):");
-const myWorkers = checkoutWorkers("Марія", 10, "ПП-32", "videogames");
-myWorkers.forEach(name => console.log(name));
+//2.4.3. Оголосіть змінну favoriteLibrarian використовуючи інтерфейс Librarian 
+ //проініціалізуйте її за допомогою об'єкта, створеного класом UniversityLibrarian()
+const favoriteLibrarian: Librarian = new UniversityLibrarian();
+//Проініціалізіруйте властивість name і викличте метод assistCustomer().
+favoriteLibrarian.name = "Ihor";
+favoriteLibrarian.assistCustomer("Maria");
 
-console.log("\n Приклад виклику checkoutWorkers(*Приклад*, 1, 2, 4):");
-const exmplWorkers = checkoutWorkers("Приклад", 1, 2, 4);
-exmplWorkers.forEach(name => console.log(name));
+const universityLibrarian = new UniversityLibrarian();
+universityLibrarian.name = "Bogdan";
+universityLibrarian.email = "bogdan@uni.com";
+universityLibrarian.department = "Science";
+universityLibrarian.assistCustomer("Oleksii");
+
+
+console.log("\n2.5-2.7 ReferenceItem and Encyclopedia ");
+
+// 2.5.2: Оголосіть змінну ref і проініціалізіруйте її об'єктом ReferenceItem.
+// закоментовано бо після 2.7.1 ReferenceItem тепер абстрактний:
+// const ref = new ReferenceItem("Some title", 1995); 
+// ref.printItem();
+
+// 2.6.2 Оголосіть змінну refBook і створіть об'єкт Encyclopedia.
+const refBook = new Encyclopedia("World Encyclopedia", 2007, 2);
+refBook.printItem(); 
+
+// через сеттер задаю видавництво
+refBook.publisher = "World Book inc.";
+// через геттер отримую видавництво у верхньому регістрі
+console.log("Publisher:", refBook.publisher);
+
+// 2.7.3 Виклик реалізованого в класі Encyclopedia абстрактного методу printCitation()
+refBook.printCitation();
