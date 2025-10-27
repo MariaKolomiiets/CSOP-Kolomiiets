@@ -1,0 +1,20 @@
+<h2>Список покупок</h2>
+<ul class="purchase-list">
+  <li *ngFor="let p of purchases; trackBy: trackById">
+
+    <input
+      type="number"
+      [ngModel]="p.quantity"
+      (ngModelChange)="p.quantity = +$event"
+      [min]="1"
+      step="1"
+      appNumberOnly
+      class="qty"
+    />
+
+    <span class="name">{{ p.name }}</span>
+    <span class="subtotal">{{ p.price * p.quantity | currency:'USD':'symbol':'1.2-2' }}</span>
+
+    <button (click)="remove.emit(p.id)">Видалити</button>
+  </li>
+</ul>

@@ -1,0 +1,43 @@
+<h2>Додати покупку</h2>
+
+<form #purchaseForm="ngForm">
+  <div class="add-row">
+
+    <input
+      type="text"
+      [(ngModel)]="name"
+      name="name"
+      placeholder="Назва товару"
+      required
+    />
+
+    <input
+      type="number"
+      [(ngModel)]="price"
+      name="price"
+      placeholder="Ціна"
+      required
+      min="0.01"
+      step="0.01"
+    />
+
+    <input
+      type="number"
+      [(ngModel)]="quantity"
+      name="quantity"
+      placeholder="Кількість"
+      [min]="1"
+      step="1"
+      appNumberOnly
+    />
+
+    <button
+      type="button"
+      (click)="addPurchase()"
+      [disabled]="!name.trim() || !price || price <= 0"
+    >
+      Додати
+    </button>
+  </div>
+
+<p class="total">Всього: {{ total | currency:'USD':'symbol':'1.2-2' }}</p>
