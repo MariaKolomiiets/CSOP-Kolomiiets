@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="input-container">
+    <h2>Введіть масив чисел через кому</h2>
+    <input type="text" [(ngModel)]="inputValue" 
+           (ngModelChange)="updateNumbers()" 
+           placeholder="Наприклад: 1,2,5" />
+    <p class="error">{{ errorMessage }}</p>
+  </div>
+
+  <child [numbers]="numbers"></child>
+</div>

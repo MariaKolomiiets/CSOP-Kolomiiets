@@ -1,0 +1,9 @@
+<div *ngIf="!numbers || numbers.length < 2">
+  <p style="color: orange;">Введіть як мінімум два числа</p>
+</div>
+
+<div *ngIf="numbers && numbers.length >= 2">
+  <h2>Результати обчислень:</h2>
+  <p>Середнє арифметичне кубів max та min: {{ arithmeticMean }}</p>
+  <p>Середнє геометричне модулів всіх чисел: {{ geometricMean }}</p>
+</div>
