@@ -1,0 +1,45 @@
+<div class="books-container">
+  <h1 class="page-title">Stephen King Books</h1>
+
+  <div class="table-wrapper">
+    <table class="books-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Publisher</th>
+          <th>Year</th>
+          <th>Pages</th>
+          <th>Favorite</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let book of books; trackBy: trackById" (click)="openPopup(book)">
+          <td>{{ book.Title }}</td>
+          <td>{{ book.Publisher }}</td>
+          <td>{{ book.Year }}</td>
+          <td>{{ book.Pages }}</td>
+          <td (click)="$event.stopPropagation()">
+            <button class="fav-btn"
+                    (click)="toggleFavorite(book)"
+                    [class.active]="isFavorite(book)">
+              {{ isFavorite(book) ? 'Remove' : 'Add' }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <app-books-chart [books]="books"></app-books-chart>
+
+  <!-- Favorites блок -->
+  <app-favorites></app-favorites>
+
+  <!-- Попап книги -->
+  <div *ngIf="selectedBook">
+    <app-book-popup
+      [book]="selectedBook"
+      (close)="closePopup()">
+    </app-book-popup>
+  </div>
+</div>

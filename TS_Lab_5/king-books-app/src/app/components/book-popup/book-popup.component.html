@@ -1,0 +1,29 @@
+<div class="popup-backdrop" (click)="close.emit()">
+  <div class="popup-window" (click)="$event.stopPropagation()">
+    <button class="close" (click)="close.emit()">×</button>
+
+    <h3>{{ book.Title }}</h3>
+
+    <p><strong>Publisher:</strong> {{ book.Publisher }}</p>
+    <p><strong>Year:</strong> {{ book.Year }}</p>
+    <p><strong>Pages:</strong> {{ book.Pages }}</p>
+    <p><strong>ISBN:</strong> {{ book.ISBN }}</p>
+
+    <p><strong>Notes:</strong> {{ notesDisplay }}</p>
+
+    <p><strong>Villains:</strong></p>
+    <ul *ngIf="book.villains && book.villains.length > 0; else noVillains">
+      <li *ngFor="let v of book.villains">
+        <strong>{{ v.name }}</strong>
+        <span *ngIf="v.description"> — {{ v.description }}</span>
+      </li>
+    </ul>
+    <ng-template #noVillains>
+      <p>None</p>
+    </ng-template>
+
+    <button class="fav-popup-btn" (click)="toggleFavorite()">
+      {{ isFavorite() ? 'Remove from Favorites' : 'Add to Favorites' }}
+    </button>
+  </div>
+</div>
