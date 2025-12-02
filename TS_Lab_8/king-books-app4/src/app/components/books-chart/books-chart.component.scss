@@ -1,0 +1,14 @@
+.chart-container {
+  width: 90%;
+  max-width: 800px;
+  background: #fff;
+  border-radius: 12px;
+  margin: 30px auto;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+ngx-charts-bar-vertical {
+  display: block;
+  height: 350px;
+}

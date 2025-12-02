@@ -1,0 +1,24 @@
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FavoritesService } from '../../services/favorites.service';
+import { Book } from '../../models/book.model';
+import { Observable } from 'rxjs';
+
+@Component({
+  selector: 'app-favorites',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './favorites.component.html',
+  styleUrls: ['./favorites.component.scss']
+})
+export class FavoritesComponent {
+  constructor(private favoritesService: FavoritesService) {}
+
+  get favorites$(): Observable<Book[]> {
+    return this.favoritesService.favorites$;
+  }
+
+  remove(book: Book) {
+    this.favoritesService.removeBook(book);
+  }
+}
